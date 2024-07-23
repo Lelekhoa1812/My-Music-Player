@@ -26,9 +26,6 @@ npm install express multer
 
 10. Deploy: vercel
 
-bash
-Sao chép mã
-npm i -g vercel
 UML Demonstration:
 /Music_Player
 |-- /public
