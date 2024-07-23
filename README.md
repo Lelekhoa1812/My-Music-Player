@@ -26,6 +26,9 @@ npm install express multer
 
 10. Deploy: vercel
 
+
+-- Vercel app accessible via: my-music-player-fq41cjotx-lelekhoa1812s-projects.vercel.app
+
 UML Demonstration:
 /Music_Player
 |-- /public
