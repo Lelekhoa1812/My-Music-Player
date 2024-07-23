@@ -22,13 +22,20 @@ npm install express multer
 
 8.  Push action: git push -u origin main  
 
+9. Deploy Vercel for dynamic hosting server. Install Vercel CLI: npm i -g vercel
+
+10. Deploy: vercel
+
 UML Demonstration:
 /Music_Player
 |-- /public
+
 |   |-- /uploads   # This is where uploaded songs will be stored
 |   |-- index.html
 |   |-- styles.css
 |   |-- script.js
+
 |-- /server
 |   |-- index.js
+
 |-- package.json
