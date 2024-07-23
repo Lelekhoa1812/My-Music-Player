@@ -1,4 +1,3 @@
-// Backend Node.js
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
@@ -8,16 +7,16 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Ensure the uploads directory exists
-const uploadsDir = path.join(__dirname, '../public/uploads');
+const uploadsDir = path.join(__dirname, 'public/uploads');
 if (!fs.existsSync(uploadsDir)) {
     fs.mkdirSync(uploadsDir);
 }
 
 // Define allowed file types
-const allowedFileTypes = ['audio/mpeg', 'audio/x-m4a'];
+const allowedFileTypes = ['audio/mpeg', 'audio/mp4']; // Updated to include 'audio/mp4'
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -27,7 +26,6 @@ const storage = multer.diskStorage({
         cb(null, file.originalname);
     }
 });
-
 
 // Restrain inappropriate filename
 const fileFilter = (req, file, cb) => {
@@ -42,7 +40,7 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({ storage: storage, fileFilter: fileFilter });
 
 // Post the file into the upload directory
-app.post('/upload', upload.single('song'), (req, res) => {
+app.post('/api/upload', upload.single('song'), (req, res) => {
     if (req.fileValidationError) {
         return res.status(400).send(req.fileValidationError);
     }
@@ -50,7 +48,7 @@ app.post('/upload', upload.single('song'), (req, res) => {
 });
 
 // Get the song from upload directory and show
-app.get('/songs', (req, res) => {
+app.get('/api/songs', (req, res) => {
     fs.readdir(uploadsDir, (err, files) => {
         if (err) {
             return res.status(500).send('Unable to scan directory');
@@ -67,7 +65,7 @@ app.get('/songs', (req, res) => {
 });
 
 // Rename the file and the song's name displayed indirectly from the web
-app.post('/rename', (req, res) => {
+app.post('/api/rename', (req, res) => {
     const { oldName, newName } = req.body;
     const oldPath = path.join(uploadsDir, oldName);
     const newPath = path.join(uploadsDir, newName);
@@ -78,7 +76,7 @@ app.post('/rename', (req, res) => {
 
     fs.rename(oldPath, newPath, (err) => {
         if (err) {
-            return res.status(500).send('Failed to rename file'); // return error with invalid filename
+            return res.status(500).send('Failed to rename file');
         }
         res.send('File renamed successfully');
     });
