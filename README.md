@@ -32,13 +32,14 @@ npm install express multer
 UML Demonstration:
 /Music_Player
 |-- /public
-
 |   |-- /uploads   # This is where uploaded songs will be stored
 |   |-- index.html
 |   |-- styles.css
 |   |-- script.js
-
 |-- /server
 |   |-- index.js
-
 |-- package.json
+|-- vercel.json
+|-- /api
+|   |-- upload.js
+|   |-- song.js
