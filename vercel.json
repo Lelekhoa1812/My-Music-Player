@@ -1,14 +1,7 @@
 {
-  "version": 2,
-  "builds": [
-    { "src": "public/**/*", "use": "@vercel/static" }
-  ],
   "functions": {
     "api/*.js": {
       "runtime": "nodejs14.x"
     }
-  },
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1.js" }
-  ]
+  }
 }
