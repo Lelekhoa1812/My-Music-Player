@@ -5,6 +5,7 @@
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/uploads/(.*)", "dest": "/public/uploads/$1" },
     { "src": "/(.*)", "dest": "/public/$1" }
   ]
 }
