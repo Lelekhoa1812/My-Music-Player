@@ -9,8 +9,16 @@ export const config = {
   },
 };
 
-// Handle upload song files from vercel
 export default function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+
   const form = new formidable.IncomingForm();
   form.uploadDir = path.join(process.cwd(), 'public/uploads');
   form.keepExtensions = true;
