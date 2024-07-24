@@ -24,10 +24,10 @@ npm install express multer
 
 9. Deploy Vercel for dynamic hosting server. Install Vercel CLI: npm i -g vercel
 
-10. Deploy: vercel
+10. Deploy: vercel (or 'vercel --prod' for CLI)
 
 
--- Vercel app accessible via: https://my-music-player-df7qq316l-lelekhoa1812s-projects.vercel.app
+-- Vercel app accessible via: https://my-music-player-omega.vercel.app/
 
 UML Demonstration:
 /Music_Player
@@ -40,6 +40,6 @@ UML Demonstration:
 |   |-- index.js
 |-- package.json
 |-- vercel.json
-|-- /api
+|-- /api           # Removed, api function now merge to server/index.js
 |   |-- upload.js
 |   |-- song.js
