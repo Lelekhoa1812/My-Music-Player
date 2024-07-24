@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', loadSongs);
 // Load song method, allow user to see the name, date posting, slider to go anywhere within the song, rename and download functions
 function loadSongs() {
     // fetch('/songs')
-    fetch('https://your-backend-url.vercel.app/api/songs')  // Update with your backend URL
+    fetch('https://my-music-player-fq41cjotx-lelekhoa1812s-projects.vercel.app/api/songs')  // Update with your backend URL
         .then(response => response.json())
         .then(data => {
             const songsList = document.getElementById('songsList');
