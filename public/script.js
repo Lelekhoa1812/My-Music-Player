@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded', loadSongs);
 
 // Load song method, allow user to see the name, date posting, slider to go anywhere within the song, rename and download functions
 function loadSongs() {
-    fetch('https://my-music-player-fq41cjotx-lelekhoa1812s-projects.vercel.app/api/songs')
+    // fetch('https://my-music-player-fq41cjotx-lelekhoa1812s-projects.vercel.app/api/songs')
+    fetch('/api/songs')
         .then(response => {
             if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
             return response.json();
@@ -66,7 +67,8 @@ function uploadSong() {
     const formData = new FormData();
     formData.append('song', file);
     
-    fetch('https://my-music-player-fq41cjotx-lelekhoa1812s-projects.vercel.app/api/upload', {  // Update with your backend URL
+    // fetch('https://my-music-player-fq41cjotx-lelekhoa1812s-projects.vercel.app/api/upload', {  // Update with your backend URL
+    fetch('/api/upload')
         method: 'POST',
         body: formData
     })
@@ -91,7 +93,8 @@ function renameSong(oldName, url) {
     const fileExtension = oldFullName.split('.').pop();
     const newFullName = newName + '.' + fileExtension;
     
-    fetch('https://my-music-player-fq41cjotx-lelekhoa1812s-projects.vercel.app/api/rename', {  // Update with your backend URL
+    // fetch('https://my-music-player-fq41cjotx-lelekhoa1812s-projects.vercel.app/api/rename', {  // Update with your backend URL
+    fetch('/api/rename')
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
