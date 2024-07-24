@@ -3,9 +3,11 @@ document.addEventListener('DOMContentLoaded', loadSongs);
 
 // Load song method, allow user to see the name, date posting, slider to go anywhere within the song, rename and download functions
 function loadSongs() {
-    // fetch('/songs')
-    fetch('https://my-music-player-fq41cjotx-lelekhoa1812s-projects.vercel.app/api/songs')  // Update with your backend URL
-        .then(response => response.json())
+    fetch('https://my-music-player-fq41cjotx-lelekhoa1812s-projects.vercel.app/api/songs')
+        .then(response => {
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+            return response.json();
+        })
         .then(data => {
             const songsList = document.getElementById('songsList');
             songsList.innerHTML = '';
@@ -25,7 +27,7 @@ function loadSongs() {
                 if (fileExtension === 'mp3') {
                     mimeType = 'audio/mpeg';
                 } else if (fileExtension === 'm4a') {
-                    mimeType = 'audio/mp4'; // or 'audio/x-m4a' depending on the browser support
+                    mimeType = 'audio/mp4';
                 }
 
                 songControls.innerHTML = `
@@ -40,39 +42,11 @@ function loadSongs() {
                 songElement.appendChild(songControls);
                 songsList.appendChild(songElement);
             });
+        })
+        .catch(error => {
+            console.error('Failed to fetch songs:', error);
         });
 }
-
-// No rename work
-// function loadSongs() {
-//     fetch('/songs')
-//         .then(response => response.json())
-//         .then(data => {
-//             const songsList = document.getElementById('songsList');
-//             songsList.innerHTML = '';
-//             data.forEach(song => {
-//                 const songElement = document.createElement('div');
-//                 songElement.className = 'song';
-                
-//                 const songInfo = document.createElement('div');
-//                 songInfo.className = 'song-info';
-//                 songInfo.innerHTML = `<strong>${song.name}</strong><br><small>${new Date(song.date).toLocaleDateString()}</small>`;
-                
-//                 const songControls = document.createElement('div');
-//                 songControls.className = 'song-controls';
-//                 songControls.innerHTML = `
-//                     <audio controls>
-//                         <source src="${song.url}" type="audio/mp3">
-//                     </audio>
-//                     <button onclick="downloadSong('${song.url}')">Download</button>
-//                 `;
-                
-//                 songElement.appendChild(songInfo);
-//                 songElement.appendChild(songControls);
-//                 songsList.appendChild(songElement);
-//             });
-//         });
-// }
 
 // Upload song file with restrain on file-type
 function uploadSong() {
@@ -92,18 +66,18 @@ function uploadSong() {
     const formData = new FormData();
     formData.append('song', file);
     
-    // fetch('/upload', {
     fetch('https://my-music-player-fq41cjotx-lelekhoa1812s-projects.vercel.app/api/upload', {  // Update with your backend URL
         method: 'POST',
         body: formData
-    }).then(response => response.text())
-      .then(data => {
-          alert(data);
-          loadSongs();
-      })
-      .catch(error => {
-          alert('Failed to upload file: ' + error.message);
-      });
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert(data);
+        loadSongs();
+    })
+    .catch(error => {
+        alert('Failed to upload file: ' + error.message);
+    });
 }
 
 // Rename the song and post new name using JSON.stringify to rename the song's filename also
@@ -116,7 +90,7 @@ function renameSong(oldName, url) {
     const oldFullName = url.split('/').pop();
     const fileExtension = oldFullName.split('.').pop();
     const newFullName = newName + '.' + fileExtension;
-    // fetch('/rename', {
+    
     fetch('https://my-music-player-fq41cjotx-lelekhoa1812s-projects.vercel.app/api/rename', {  // Update with your backend URL
         method: 'POST',
         headers: {
