@@ -12,10 +12,6 @@
   ],
   "routes": [
     {
-      "src": "/uploads/(.*)",
-      "dest": "/public/uploads/$1"
-    },
-    {
       "src": "/api/(.*)",
       "dest": "/server/index.js"
     },
